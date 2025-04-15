@@ -1,1 +1,78 @@
-<p>pump-listing works!</p>
+<table
+    tuiTable
+    class="table"
+    [columns]="columns"
+>
+    <thead>
+        <tr tuiThGroup>
+            <th
+                tuiTh
+                [resizable]="true"
+            >
+              Наименование
+            </th>
+            <th tuiTh>Макс. давление, бар</th>
+            <th tuiTh>Температура жидкости, °C</th>
+            <th tuiTh>Вес, кг</th>
+            <th tuiTh>Цена, руб</th>
+            <th tuiTh>Действия</th>
+        </tr>
+    </thead>
+    <tbody
+        tuiTbody
+        [data]="(pumps$ | async)!"
+    >
+        <tr
+            *ngFor="let item of pumps$ | async"
+            tuiTr
+        >
+            <td
+                *tuiCell="'Наименование'"
+                tuiTd
+            >
+                {{item.name}}
+            </td>
+            <td
+                *tuiCell="'Макс. давление, бар'"
+                tuiTd
+            >
+                {{item.maxPressureBar | tuiFormatNumber | async}}
+            </td>
+            <td
+                *tuiCell="'Температура жидкости, °C'"
+                tuiTd
+            >
+                {{item.liquidTemperatureC | tuiFormatNumber | async}}
+            </td>
+            <td
+                *tuiCell="'Вес, кг'"
+                tuiTd
+            >
+                {{item.weightKg | tuiFormatNumber | async}}
+            </td>
+            <td
+                *tuiCell="'Цена, руб'"
+                tuiTd
+            >
+                {{item.priceRub | tuiFormatNumber | async}}
+            </td>
+            <td
+                *tuiCell="''"
+                tuiTd
+                class="actions-column"
+            >
+            <span>
+              <button
+              appearance="action"
+              iconStart="@tui.pencil"
+              size="xs"
+              tuiIconButton
+              type="button"
+              >
+                  Edit
+              </button>
+            </span>
+            </td>
+        </tr>
+    </tbody>
+</table>
